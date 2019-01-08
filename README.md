@@ -3,6 +3,11 @@
 [![node](https://img.shields.io/badge/node-10.14.1-yellow.svg)](https://nodejs.org/en/)
 
 
+# The Next Step
+
+We use the ```modified inclusive protocol``` in Ethereum for a reward system(ToDo), and the ```longest chain rule``` for a chain-selection system. See the following link if you want details[[8]](https://github.com/twodude/ghost-relay/blob/master/README.md#references).
+
+
 # OMG
 
 Ethereum does use neither ```GHOST protocol``` nor ```Inclusive protocol```. Today's Ethereum is just following the ```longest chain``` rule[[5]](https://github.com/twodude/ghost-relay/blob/master/README.md#references)[[6]](https://github.com/twodude/ghost-relay/blob/master/README.md#references)[[7]](https://github.com/twodude/ghost-relay/blob/master/README.md#references).
@@ -161,11 +166,9 @@ Based on the following post[[5]](https://github.com/twodude/ghost-relay/blob/mas
 
 ### ToDo: Pruning
 
-It requires too many fees(gases) to contain all tree's nodes, so we have to prune some useless branches. Fortunately, Ethereum adopts not GHOST but
-**modified GHOST protocol**
-which covers only seven levels in the height of blockchain, and requires ten confirmations to achieve finality[[6]](https://github.com/twodude/ghost-relay/blob/master/README.md#references).
+It requires too many fees(gases) to contain all nodes, so we have to prune some useless subgraphs. Fortunately, Ethereum requires ten confirmations to achieve finality[[6]](https://github.com/twodude/ghost-relay/blob/master/README.md#references).
 
-It is possible to prune all the other branches more than ten times previously except a main-chain's one.
+It is possible to prune all the other subgraphs which have no relationship with recent blocks, except a main-chain's one.
 
 
 ## How to Use :: ghost.sol
@@ -224,6 +227,7 @@ Return selected child block's hash.
 > [5] https://ethereum.stackexchange.com/questions/38121/why-did-ethereum-abandon-the-ghost-protocol   
 > [6] https://ethereum.stackexchange.com/questions/13378/what-is-the-exact-longest-chain-rule-implemented-in-the-ethereum-homestead-p   
 > [7] https://www.youtube.com/watch?v=57DCYtk0lWI   
+> [8] https://github.com/ethereum/go-ethereum/blob/master/consensus/ethash/consensus.go#L186   
 
 
 ## License
