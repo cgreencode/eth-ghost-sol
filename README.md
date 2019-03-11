@@ -11,9 +11,6 @@ The ```GHOST relay``` is a system that allow of cross-EVM-chain communication us
 
 > Based on [Peace Relay](https://github.com/KyberNetwork/peace-relay)
 
-* See details: [Wiki](https://github.com/twodude/ghost-relay/wiki)
-
-
 ## Abstact
 
 ```GHOST relay``` is an ETH-ETH(Ethereum-Ethereum Classic, etc.) relaying smart contract. GHOST relay allows trustworthy cross-chain transfers based on Ethereum core.
@@ -37,6 +34,17 @@ Ghost relay is able to treat blockchain reorganization(a.k.a. reorg) problem usi
 
 Actually not really
 
+## ToDo
+
+added 2019-03-11,
+
+1. Decode rlp data in contract
+
+2. Encode block header data in deamon
+
+trustedRelay.sol: parseBlockHeader function gotten from peaceRelay. To get multiple blockheader data from daemon, recommended method is to serialize blockheader info into RLP, and deserialize it in contract. Let one item=1block header, and sending several items as single bytes array.
+
+Minimum blockheader number to send per transaction >= 7? Bigger required if transaction accept time is longer
 
 ## Details
 
@@ -222,17 +230,6 @@ Ethereum does use neither ```GHOST protocol``` nor ```Inclusive protocol```. Tod
 See the details of the above code [here](https://github.com/twodude/ghost-relay/blob/master/codeReviews.md).
 
 
-### Understanding Ethereum Smart Contract Storage[[10]](https://github.com/twodude/ghost-relay/blob/master/README.md#references)[[11]](https://github.com/twodude/ghost-relay/blob/master/README.md#references)
-
-Each smart contract maintains state in its own permanent storage. Storage is extremely sparsely populated, and **there’s no need to store the zeros.** A key/value store mapping 32-byte keys to 32-byte values will do the job nicely. An absent key is simply defined as mapping to the value zero.
-
-Because zeros don’t take up any space, storage can be reclaimed by setting a value to zero. This is incentivized in smart contracts with a gas refund when you change a value to zero.
-
-* There are no deleting a mapping in solidity. The only way to clear the data is to overwriting. Therefore, you have to concern about the gas consumption issues.
-
-* Although there is a gas refund system in EVM, it can make loss that overwriting consumes more gas than refund one[[12]](https://github.com/twodude/ghost-relay/blob/master/README.md#references).
-
-
 # References
 
 > [1] G. Wood, "Ethereum a secure decentralised generalised transaction ledger", 2014.   
@@ -244,9 +241,6 @@ Because zeros don’t take up any space, storage can be reclaimed by setting a v
 > [7] https://www.youtube.com/watch?v=57DCYtk0lWI   
 > [8] https://github.com/ethereum/go-ethereum/blob/master/consensus/ethash/consensus.go#L186   
 > [9] https://stackoverflow.com/questions/48515633/deleting-mapping-from-mapping-in-solidity   
-> [10] https://programtheblockchain.com/posts/2018/03/09/understanding-ethereum-smart-contract-storage/   
-> [11] https://stackoverflow.com/questions/48515633/deleting-mapping-from-mapping-in-solidity   
-> [12] https://ethereum.stackexchange.com/questions/64217/gas-usage-higher-when-using-the-delete-keyword   
 
 
 # License
